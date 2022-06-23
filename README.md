@@ -104,11 +104,43 @@ Furthermore the node permits to increment/decrement the velocity of the robot an
 	return true;
 }
 ```
+## USER NODE
+
+The user node represents the interface of the project to  the user that assist the user to control the behavior the robot, as  user can increase/decrease the velocity of the robot and reset its position by simple commands:
+
+ * A --> accelerate the robot by 0.5
+ * D --> decelerate the robot by 0.5
+ * R --> reset robot position.
+
+```
+
+char GETCHAR(void){
+
+	char ch;
+	
+	std::cout << "ACCELERATE the robot: press A\n";
+	std::cout << "DECELERATE the robot: press D\n";
+	std::cout << "RESET the robot's position: press R\n";
+	
+	std::cin >> ch;
+	
+	return ch;
+}
+```
+## SERVICE 
+The service Changespeed.srv
 
 
+```
+char Kinput
 
+---
 
+float32 range
 
+```
+The request of he the user is sent to the control node and the server node will manage the request using a switch. No response will be sent to the user node  since the service operate directly on the control node.
 
+## FLO CHAT
 
-
+## rqt_graph
