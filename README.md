@@ -1,5 +1,6 @@
 # RT1_assignment2
 ROS MONZA RACING C++
+
 ![image](https://user-images.githubusercontent.com/104999107/175375406-1560982b-888c-4e56-b70f-84e05d329abc.png)
 
 This the secnod project of the course Research_Track_2, the project aimed to run the robot within the above given circuit with the following abalities
@@ -13,7 +14,96 @@ The package contains the C++ sources needed for the interaction with the robot &
 
 ## Install and Running 
 
-The simulator requires ROS ( Robot Operating System ),Once you have installed ROS and created your workspace you have to download the package second_assignment in the src folder of your workspace.en run the launch file that:roslaunch second_assignment second_assignment.launch the launch file will run the multiple node and same time for the user to make the thnig easer.
+The simulator requires ROS ( Robot Operating System ),Once you have installed ROS and created your workspace you have to download the package second_assignment in the src folder of your workspace.
+
+run the Assignment write the following command in your terminal
+```
+roslaunch second_assignment second_assignment.launch
+```
+
+## Code development
+To complete the requirment of the above mentioned behavior of the robot two nodes(**control.cpp** & **user.cpp**)that interact with robot and user and custom service(**Chnagespeed.srv**) to manage the change in speed are created to fulfil the requirments
+
+### Conrol Node 
+
+In the control node there is the main code of the project. This node handles multiple information and perform communications between the nodes and the user ,moreover it contains the main structure of the code which allows the robot to avoid hitting wall and drive through the circuit without any problem.
+
+
+In the base_scan topic, which provides data about the laser that scans the surrounding environment, there is the type message sensor_msgs/LaserScan. The topic provides an array, which returns the distances between the robot and the obstacles; every distance is given by the array ranges[i] (i = 0,...,720) and it is computed considering each of 721 section in which the vision of the robot is divided, since the vision of the robot is included in a spectrum range of 180 degrees in front of it and expressed in radiant. I have separated 3 big subsections (right, left and in front of the robot), inside the 0-720 spectrum, for the vision of the robot and i have computed the minimum distance between the robot and the obstacle for each subsection, in order to implement the similar logic seen in the previous assignment. This is the function:
+
+
+```
+
+
+float min_right_dist = Compute_min(0, 105, laser_scanner);
+	float min_front_dist = Comput_min(305, 405, laser_scanner);
+	float min_left_dist = Compute_min(615, 715, laser_scanner);
+	
+	// As we have done in the previous assignement, the robot will avoid going against the 
+	// obstacles thanks to these simply statements.
+	
+	if(min_front_dist < 1.6){
+			
+    	if(min_right_dist < min_left_dist){
+    	
+    	// The robot will turn right if the minimum distance from the wall on the left is 
+        // greater than the distance of the wall on the right
+    	
+    		my_vel.angular.z = 1.0;
+    		my_vel.linear.x = 0.1;
+		}
+		
+		else if(min_right_dist > min_left_dist){
+		
+    	// The robot will turn left if the minimum distance from the wall on the right is 
+	// greater than the distance of the wall on the left
+		
+			my_vel.angular.z = -1.0;
+			my_vel.linear.x = 0.1;
+		}
+	}
+		
+	else{
+	
+	// If the robot doesn't have to make a curve to avoid hitting walls, will go straight.
+	// The plus variable will increment/decrement if we press "A"/"D" on the user_node
+	
+	my_vel.linear.x = 1.0 + addition;
+	my_vel.angular.z = 0.0;
+	
+		// Just a simple control to avoid make the robot going backwards.
+	
+		if(my_vel.linear.x < 0.0){
+			
+			my_vel.linear.x = 0.0;
+			my_vel.angular.z = 0.0;
+		}
+	}
+```
+Furthermore the node permits to increment/decrement the velocity of the robot and reset its position (through the inputs given from keyboard and "passed" by the custom service Changespeed.srv (in the srv folder) that handles two elements: char Kinput, that is the request from the client and float32 range, that is the response from the server; in fact the control node is the server node that receives the request from the user node (client node)). 
+
+```
+/*This is the function that uses the Service 'service'. It reads the requests from client and
+	change the global variable 'my_input.response.range' that multiplies the velocities so that 
+	it makes the robot increase/decrease the velocity. 
+	1.	The keyborad key 'a' is used for increasing the multiplier and therefore also the robot velocity.
+	2.	The keyborad key 's' is used for decreasing the multiplier and therefore also the robot velocity.
+	3.	The keyborad key 'r' is used for restarting the robot from its initial position but also for resetting his initial velocity.	 
+	
+	This is a bool function, it returns true every time that one of the inputs above is received. */
+		
+	if(req.input=='a'){
+		my_input.response.range+=0.5;
+	}
+	else if(req.input=='s'){
+		my_input.response.range-=0.5;
+	}
+	else if(req.input=='r'){
+		my_input.response.range = 1.0;
+	}
+	return true;
+}
+```
 
 
 
@@ -22,9 +112,3 @@ The simulator requires ROS ( Robot Operating System ),Once you have installed RO
 
 
 
-
-
-
-
-
-The environment is a simple 3D model of the actual Monza's F1 circuit. ROS (Robot Operating System) is a set of tools and libraries for autonomous, robust, efficient, and secure mobile robot navigation, which uses sensors to sense the environment and computer vision techniques as the navigation method.
