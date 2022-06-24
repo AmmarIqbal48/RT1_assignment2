@@ -1,9 +1,8 @@
 # RT1_assignment2
+
 ROS MONZA RACING C++
-
-![image](https://user-images.githubusercontent.com/104999107/175375406-1560982b-888c-4e56-b70f-84e05d329abc.png)
-
-This the secnod project of the course Research_Track_2, the project aimed to run the robot within the above given circuit with the following abalities
+----------------------
+This the secnod project of the course Research_Track_1, the project aim is to run the robot within the above given circuit with the following abalities
 
 * Constantly driving around the environment in the clockwise direction when the user start.
 * Avoiding to hit the walls.
@@ -12,7 +11,10 @@ This the secnod project of the course Research_Track_2, the project aimed to run
 
 The package contains the C++ sources needed for the interaction with the robot & the user.
 
-## Install and Running 
+
+![image](https://user-images.githubusercontent.com/104999107/175375406-1560982b-888c-4e56-b70f-84e05d329abc.png)
+
+## Installing and Running 
 
 The simulator requires ROS ( Robot Operating System ),Once you have installed ROS and created your workspace you have to download the package second_assignment in the src folder of your workspace.
 
@@ -21,7 +23,8 @@ run the Assignment write the following command in your terminal
 roslaunch second_assignment second_assignment.launch
 ```
 
-## Code development
+## Nodes Used In The Program
+
 To complete the requirment of the above mentioned behavior of the robot two nodes(**control.cpp** & **user.cpp**)that interact with robot and user and custom service(**Chnagespeed.srv**) to manage the change in speed are created to fulfil the requirments
 
 ### Conrol Node 
@@ -104,7 +107,7 @@ Furthermore the node permits to increment/decrement the velocity of the robot an
 	return true;
 }
 ```
-## USER NODE
+## User Node
 
 The user node represents the interface of the project to  the user that assist the user to control the behavior the robot, as  user can increase/decrease the velocity of the robot and reset its position by simple commands:
 
@@ -127,7 +130,7 @@ char GETCHAR(void){
 	return ch;
 }
 ```
-## SERVICE 
+## Service
 The service Changespeed.srv
 
 
@@ -141,6 +144,12 @@ float32 range
 ```
 The request of he the user is sent to the control node and the server node will manage the request using a switch. No response will be sent to the user node  since the service operate directly on the control node.
 
-## FLO CHAT
+## Flow Chart
 
 ## rqt_graph
+
+## Conclusion And Future Improvement
+
+1) When we are increasing the speed of the robot the robot can collide with the walls because we have a circuit which has sharp turns so the robot having hgher    spedd can crush itself with the walls. 
+
+2) The robot gets very slow on turns.
