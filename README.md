@@ -150,6 +150,8 @@ The request of he the user is sent to the control node and the server node will 
 
 ## rqt_graph
 
+![image](https://user-images.githubusercontent.com/104999107/175792139-f4f5d7a5-0c18-4370-bc72-c29c1179587b.png)
+
 ## Conclusion And Future Improvement
 
 1) When we are increasing the speed of the robot the robot can collide with the walls because we have a circuit which has sharp turns so the robot having hgher    spedd can crush itself with the walls. 
