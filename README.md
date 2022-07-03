@@ -20,7 +20,7 @@ The simulator requires ROS ( Robot Operating System ),Once you have installed RO
 
 run the Assignment write the following command in your terminal
 ```
-roslaunch second_assignment second_assignment.launch
+roslaunch second_assignment file.launch
 ```
 
 ## Nodes Used In The Program
@@ -151,6 +151,10 @@ The request of he the user is sent to the control node and the server node will 
 ## rqt_graph
 
 ![image](https://user-images.githubusercontent.com/104999107/175792139-f4f5d7a5-0c18-4370-bc72-c29c1179587b.png)
+
+## Video
+
+https://user-images.githubusercontent.com/104999107/177035138-ef5ef846-4aef-495d-9f38-5d6e94453e5d.mp4
 
 ## Conclusion And Future Improvement
 
