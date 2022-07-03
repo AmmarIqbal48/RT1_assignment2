@@ -37,8 +37,25 @@ In the base_scan topic, which provides data about the laser that scans the surro
 
 ```
 
+// This function is used to obtain the minimum distance from the wall in spectrum range of [0] to [720]
+// I will pass the 2 values that describes my range and the array of distances about that range.
 
-float min_right_dist = Compute_min(0, 105, laser_scanner);
+float Compute_min(int min_range, int max_range, float distance_wall[]){
+	
+	
+	
+	//we will obtain the minimum distance from wall
+		for(int i = min_range; i <= max_range; i++){
+		
+		if(distance_wall[i] <= distance_value){
+		
+			distance_value = distance_wall[i];
+		}
+	}
+	
+	return distance_value;
+}
+        float min_right_dist = Compute_min(0, 105, laser_scanner);
 	float min_front_dist = Comput_min(305, 405, laser_scanner);
 	float min_left_dist = Compute_min(615, 715, laser_scanner);
 	
