@@ -2,7 +2,7 @@
 
 ROS MONZA RACING C++
 ----------------------
-This the secnod project of the course Research_Track_1, the project aim is to run the robot within the above given circuit with the following abalities
+This the secnod project of the course Research_Track_1, the project aim is to run the robot within the below given circuit with the following abalities
 
 * Constantly driving around the environment in the clockwise direction when the user start.
 * Avoiding to hit the walls.
