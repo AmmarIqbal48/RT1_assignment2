@@ -107,7 +107,7 @@ Furthermore the node permits to increment/decrement the velocity of the robot an
 	change the global variable 'my_input.response.range' that multiplies the velocities so that 
 	it makes the robot increase/decrease the velocity. 
 	1.	The keyborad key 'a' is used for increasing the multiplier and therefore also the robot velocity.
-	2.	The keyborad key 's' is used for decreasing the multiplier and therefore also the robot velocity.
+	2.	The keyborad key 'd' is used for decreasing the multiplier and therefore also the robot velocity.
 	3.	The keyborad key 'r' is used for restarting the robot from its initial position but also for resetting his initial velocity.	 
 	
 	This is a bool function, it returns true every time that one of the inputs above is received. */
@@ -115,7 +115,7 @@ Furthermore the node permits to increment/decrement the velocity of the robot an
 	if(req.input=='a'){
 		my_input.response.range+=0.5;
 	}
-	else if(req.input=='s'){
+	else if(req.input=='d'){
 		my_input.response.range-=0.5;
 	}
 	else if(req.input=='r'){
